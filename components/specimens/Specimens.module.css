@@ -1,0 +1,124 @@
+/* Specimens scale with their tile: every size is in container units (cqw).
+   The tile (parent) sets container-type: inline-size and the chapter inks. */
+
+/* ---------- Brand: a lockup for the visitor's company ---------- */
+.brand {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  align-items: end;
+  gap: 5cqw;
+  padding: 9cqw;
+  color: var(--ink);
+}
+.brandMark {
+  align-self: center;
+  justify-self: start;
+  display: grid;
+  place-items: center;
+  width: 42cqw;
+  aspect-ratio: 1;
+  background: var(--ink);
+  color: var(--field);
+  font-size: 17cqw;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  clip-path: polygon(9cqw 0, 100% 0, 100% calc(100% - 9cqw), calc(100% - 9cqw) 100%, 0 100%, 0 9cqw);
+}
+.brandName {
+  font-size: 11cqw;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+.brandRow { display: flex; align-items: center; gap: 2.4cqw; }
+.chip { width: 9cqw; aspect-ratio: 1; outline: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); }
+.favicon {
+  margin-left: auto;
+  display: grid; place-items: center;
+  width: 9cqw; aspect-ratio: 1;
+  background: var(--ink); color: var(--field);
+  font-size: 5cqw; font-weight: 500;
+}
+
+/* ---------- Web: a first screen in a browser ---------- */
+.browser {
+  position: absolute;
+  inset: 8cqw 8cqw auto 8cqw;
+  background: #fbfafa;
+  color: #101010;
+  font-size: 1.6cqw;
+  box-shadow: 0 2cqw 5cqw -2cqw rgb(0 0 0 / 0.35); /* the window floats on the tile */ /* taste-skill-ignore: window inside a data-ui fragment */
+}
+.browserBar {
+  display: flex; align-items: center; gap: 0.8cqw;
+  padding: 1.4cqw 1.8cqw;
+  background: #e9e9e9;
+}
+.dot { width: 1.2cqw; aspect-ratio: 1; border-radius: 50%; background: #c4c4c4; }
+.url {
+  margin-left: 2cqw; padding: 0.4cqw 1.6cqw; background: #fff; color: #555; min-width: 30cqw;
+  border-radius: 1cqw;
+}
+.page { padding: 2.4cqw 3.2cqw 3.2cqw; }
+.pageNav { display: flex; gap: 2.6cqw; align-items: center; color: #555; }
+.pageNav b { color: #101010; font-weight: 600; margin-right: auto; }
+.pageNav i { font-style: normal; background: #101010; color: #fff; padding: 0.6cqw 1.4cqw; }
+.pageHero { padding: 6cqw 0 4cqw; }
+.pageH { font-size: 5.4cqw; line-height: 1; letter-spacing: -0.04em; color: #101010; }
+.pageSub { margin-top: 1.6cqw; max-width: 46cqw; color: #555; font-size: 1.9cqw; line-height: 1.4; }
+.pageBtn {
+  display: inline-block; margin-top: 2.4cqw; font-style: normal;
+  background: #00ffff; color: #000; padding: 1cqw 2.2cqw; font-size: 1.8cqw;
+}
+
+/* ---------- Product: an app screen ---------- */
+.app {
+  position: absolute;
+  inset: 8cqw 0 8cqw 8cqw;
+  display: grid;
+  grid-template-columns: 17cqw 1fr;
+  background: #171717;
+  color: #e8e8e8;
+  font-size: 1.7cqw;
+  box-shadow: 0 2cqw 5cqw -2cqw rgb(0 0 0 / 0.5); /* taste-skill-ignore: window inside a data-ui fragment */
+}
+.appSide { display: grid; align-content: start; gap: 1.6cqw; padding: 2.4cqw 2cqw; background: #101010; color: #9a9a9a; }
+.appSide b {
+  display: grid; place-items: center; width: 4.4cqw; aspect-ratio: 1; margin-bottom: 1.6cqw;
+  background: #00ffff; color: #000; font-weight: 600;
+}
+.appSideOn { color: #fff; }
+.appMain { padding: 2.4cqw 3cqw; overflow: hidden; }
+.appTop { display: flex; justify-content: space-between; align-items: baseline; gap: 2cqw; margin-bottom: 2.6cqw; }
+.appTop b { font-size: 2.8cqw; font-weight: 500; letter-spacing: -0.03em; color: #fff; }
+.appTop span { color: #9a9a9a; }
+.appTable { width: 100%; border-collapse: collapse; }
+.appTable th { text-align: left; font-weight: 400; color: #8a8a8a; padding: 0 0 1.2cqw; }
+.appTable td { padding: 1.5cqw 0; border-top: 1px solid #2a2a2a; }
+.appTable td:last-child, .appTable th:last-child { text-align: right; }
+.appTable em { font-style: normal; padding: 0.3cqw 1cqw; background: #0f3434; color: #7ff; }
+.appTable em[data-state="warn"] { background: #3a2c0c; color: #ffcf6b; }
+.appNote { margin-top: 2cqw; color: #8f8f8f; font-size: 1.5cqw; }
+
+/* ---------- Deck: a title slide on a stack ---------- */
+.deck { position: absolute; inset: 0; }
+.slide {
+  position: absolute;
+  left: 10cqw; right: 10cqw; top: 22cqw;
+  aspect-ratio: 16 / 9;
+  background: #101010;
+  color: #fbfafa;
+  padding: 6cqw;
+  z-index: 3;
+}
+.slideBack { z-index: 2; transform: translate(4cqw, 6cqw) rotate(3deg); background: #3f3f3f; }
+.slideBack2 { z-index: 1; transform: translate(-3cqw, 11cqw) rotate(-4deg); background: #d9d9d9; }
+.slideMark {
+  display: grid; place-items: center; width: 9cqw; aspect-ratio: 1;
+  background: #00ffff; color: #000; font-size: 4cqw; font-weight: 600;
+}
+.slideTitle { margin-top: 8cqw; font-size: 8cqw; line-height: 1; letter-spacing: -0.045em; overflow-wrap: anywhere; }
+.slideSub { margin-top: 1.6cqw; font-size: 3cqw; color: #bdbdbd; }
+.slideNo { position: absolute; right: 5cqw; bottom: 4cqw; font-size: 2.4cqw; color: #8a8a8a; font-variant-numeric: tabular-nums; }

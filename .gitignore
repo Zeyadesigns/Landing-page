@@ -7,3 +7,10 @@ next-env.d.ts
 .env*.local
 .DS_Store
 npm-debug.log*
+
+# design tooling: raw downloads and screenshots stay local, records are committed
+assets-src/*
+!assets-src/credits.json
+.taste-skill/inspect/
+.impeccable/review/*.png
+.impeccable/config.local.json

@@ -1,0 +1,29 @@
+.chapter { display: flex; align-items: center; }
+.chapter > div { width: 100%; }
+
+.sentence {
+  font-size: var(--step-display);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-display);
+}
+.sentence > span { display: block; }
+.price {
+  display: inline-block;
+  padding: 0 0.15em;
+  background: var(--cyan);
+  color: var(--black);
+  line-height: 1;
+  /* the cut, at type scale */
+  clip-path: polygon(0.16em 0, 100% 0, 100% calc(100% - 0.16em), calc(100% - 0.16em) 100%, 0 100%, 0 0.16em);
+}
+
+.foot { margin-top: var(--space-xl); align-items: end; row-gap: var(--space-m); }
+.includes { grid-column: 1 / span 6; font-size: 20px; max-width: 46ch; }
+.actions { grid-column: 10 / -1; justify-self: end; display: grid; justify-items: end; gap: var(--space-s); }
+
+@media (max-width: 900px) {
+  .includes, .actions { grid-column: 1 / -1; }
+  .actions { justify-self: stretch; justify-items: start; }
+  .includes { font-size: 17px; }
+  .sentence { font-size: 13vw; }
+}

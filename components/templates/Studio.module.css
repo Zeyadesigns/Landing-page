@@ -1,0 +1,39 @@
+.h2 { font-size: clamp(30px, 3vw, 46px); line-height: 1.02; letter-spacing: var(--tracking-title); }
+.big { font-size: var(--step-title); line-height: 1; letter-spacing: var(--tracking-title); }
+
+.street { grid-column: 1 / span 5; }
+.street img { width: 100%; height: auto; }
+.street figcaption, .sky figcaption { margin-top: var(--space-2xs); font-size: var(--step-small); color: var(--ink-soft); }
+.cityCopy { grid-column: 7 / -1; align-self: center; display: grid; gap: var(--space-m); max-width: 56ch; font-size: 19px; }
+.bridge { font-size: var(--step-lead); line-height: 1.35; letter-spacing: -0.015em; }
+
+/* clip-path shutter for the street picture */
+html:global(.js) .street[data-shutter] { clip-path: inset(0 0 100% 0); }
+html:global(.js) .street[data-shutter]:global(.is-in) { clip-path: inset(0); transition: clip-path var(--dur-slow) var(--ease-out); }
+
+.howHead { grid-column: 1 / span 4; align-self: start; }
+.steps { grid-column: 6 / -1; display: grid; gap: var(--space-l); }
+.steps li { display: grid; gap: var(--space-2xs); max-width: 60ch; }
+.steps h3 { font-size: var(--step-lead); letter-spacing: -0.02em; font-weight: 500; }
+.steps p { color: var(--ink-soft); }
+
+.beliefs { margin-top: var(--space-xl); display: grid; }
+.beliefs li { padding-block: var(--space-l); align-items: baseline; row-gap: var(--space-2xs); }
+.beliefs li + li { margin-top: 2px; }
+.beliefs h3 { grid-column: 1 / span 5; font-size: clamp(28px, 3vw, 44px); letter-spacing: var(--tracking-title); line-height: 1.05; }
+.beliefs p { grid-column: 7 / -1; max-width: 52ch; color: var(--ink-soft); font-size: 19px; }
+
+.sky { margin-top: var(--space-2xl); }
+.sky img { width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; }
+
+.creditsChapter { padding-block: var(--space-2xl); }
+.creditsNote { margin-top: var(--space-s); max-width: 62ch; color: var(--ink-soft); }
+.credits { margin-top: var(--space-l); display: grid; gap: var(--space-s); }
+.credits li { display: grid; gap: 2px; }
+.credits span { font-size: var(--step-small); color: var(--ink-soft); }
+
+@media (max-width: 900px) {
+  .street, .cityCopy, .howHead, .steps, .beliefs h3, .beliefs p { grid-column: 1 / -1; }
+  .cityCopy, .steps { margin-top: var(--space-l); }
+  .sky img { aspect-ratio: 4 / 3; }
+}

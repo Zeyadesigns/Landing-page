@@ -1,0 +1,16 @@
+.chapter {
+  position: relative;
+  background: var(--field);
+  color: var(--ink);
+  padding-block: var(--space-2xl);
+}
+.tall { min-height: 90svh; }
+
+/* The cut: the field overlaps the chapter above by the cut size and clips its own
+   top-left corner, so the colour above shows through the diagonal. */
+.cut {
+  --cut: var(--chamfer-lg);
+  margin-top: calc(var(--cut) * -1);
+  padding-top: calc(var(--space-2xl) + var(--cut));
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%, 0 var(--cut));
+}

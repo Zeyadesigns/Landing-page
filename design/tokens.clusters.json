@@ -1,0 +1,71 @@
+{
+  "source": [
+    "design/incumbent/globals.css",
+    "design/incumbent/hero.module.css"
+  ],
+  "space": {
+    "k": 3,
+    "silhouette": 0.645,
+    "clusters": [
+      {
+        "centroid": 10.287373447220801,
+        "members": [
+          8,
+          10,
+          14
+        ],
+        "token": 10
+      },
+      {
+        "centroid": 24.032414516625,
+        "members": [
+          20,
+          22,
+          24,
+          28
+        ],
+        "token": 24
+      },
+      {
+        "centroid": 42.951583842841984,
+        "members": [
+          34,
+          36,
+          37,
+          40,
+          44,
+          48,
+          50,
+          52,
+          56
+        ],
+        "token": 44
+      }
+    ]
+  },
+  "type": {
+    "k": 2,
+    "silhouette": 0.799,
+    "clusters": [
+      {
+        "centroid": 15.4654563594541,
+        "members": [
+          12,
+          16,
+          18
+        ],
+        "token": 16
+      },
+      {
+        "centroid": 52.51085669019556,
+        "members": [
+          40,
+          44,
+          60,
+          72
+        ],
+        "token": 52
+      }
+    ]
+  }
+}

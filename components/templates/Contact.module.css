@@ -1,0 +1,11 @@
+.book { display: grid; gap: var(--space-m); justify-items: start; }
+.bridge { color: var(--ink); font-size: var(--step-lead); line-height: 1.35; letter-spacing: -0.015em; max-width: 34ch; }
+.side { grid-column: 1 / span 4; align-self: start; position: sticky; top: var(--space-l); display: grid; gap: var(--space-s); }
+.h2 { font-size: clamp(30px, 3vw, 46px); line-height: 1.02; letter-spacing: var(--tracking-title); }
+.sideText { color: var(--ink-soft); max-width: 36ch; }
+.builder { grid-column: 6 / span 7; }
+
+@media (max-width: 900px) {
+  .side, .builder { grid-column: 1 / -1; position: static; }
+  .builder { margin-top: var(--space-l); }
+}

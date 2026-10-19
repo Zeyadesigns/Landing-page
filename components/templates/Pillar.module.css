@@ -1,0 +1,69 @@
+/* Service pillar template */
+.headline { font-size: var(--step-lead); color: var(--ink); margin-bottom: var(--space-2xs); }
+.whyHead { grid-column: 1 / span 5; display: grid; gap: var(--space-l); align-content: start; }
+.h2plain { font-size: clamp(32px, 3.4vw, 52px); line-height: 1.02; letter-spacing: var(--tracking-title); }
+.specimen {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 8 / 5;
+  max-width: 520px;
+  overflow: hidden;
+  background: var(--field);
+  color: var(--ink);
+  clip-path: polygon(var(--chamfer-lg) 0, 100% 0, 100% 100%, 0 100%, 0 var(--chamfer-lg));
+}
+.specimen[data-shape="brand"], .specimen[data-shape="deck"] { aspect-ratio: 4 / 5; max-width: 400px; }
+
+.h2 { grid-column: 1 / span 5; font-size: clamp(32px, 3.4vw, 52px); line-height: 1.02; letter-spacing: var(--tracking-title); align-self: start; }
+.h2small { font-size: clamp(24px, 2.2vw, 32px); letter-spacing: -0.02em; }
+.big { font-size: var(--step-title); line-height: 1; letter-spacing: var(--tracking-title); }
+
+.copy { grid-column: 7 / -1; display: grid; align-content: start; gap: var(--space-s); max-width: 60ch; font-size: 20px; }
+.second { margin-top: var(--space-2xl); }
+.forWhom { grid-column: 7 / -1; display: grid; gap: var(--space-m); }
+.forWhom li { font-size: var(--step-lead); line-height: 1.3; letter-spacing: -0.015em; padding-left: 1.2em; position: relative; }
+.forWhom li::before {
+  content: ""; position: absolute; left: 0; top: 0.42em; width: 0.5em; height: 0.5em; background: var(--cyan);
+  clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
+}
+
+.deliverables { margin-top: var(--space-xl); }
+.deliverables > div { padding-block: var(--space-m); align-items: baseline; }
+.deliverables > div:nth-child(odd) { background: color-mix(in srgb, var(--ink) 4%, var(--field)); }
+.deliverables dt { grid-column: 1 / span 4; font-size: var(--step-lead); letter-spacing: -0.02em; font-weight: 500; padding-left: var(--space-s); }
+.deliverables dd { grid-column: 5 / span 7; max-width: 60ch; }
+
+.signals { grid-column: 7 / -1; display: grid; gap: var(--space-l); }
+.signals li { font-size: clamp(24px, 2.4vw, 36px); line-height: 1.15; letter-spacing: -0.025em; }
+
+.concepts { margin-top: var(--space-xl); display: grid; gap: var(--space-2xl); }
+.concepts > li { align-items: start; row-gap: var(--space-m); }
+.conceptStill { grid-column: 1 / span 7; display: block; }
+.conceptCopy { grid-column: 9 / -1; display: grid; gap: var(--space-s); }
+.conceptCopy h3 { font-size: clamp(28px, 2.6vw, 40px); letter-spacing: var(--tracking-title); line-height: 1.05; }
+.badge { display: inline-block; vertical-align: middle; font-size: 14px; letter-spacing: 0; padding: 4px 10px; background: var(--white); color: var(--black); }
+
+.cluster { grid-column: 7 / -1; display: grid; gap: var(--space-2xs); }
+.clusterLink { display: grid; gap: 6px; padding: var(--space-m); background: color-mix(in srgb, var(--white) 55%, var(--field)); transition: background var(--dur-fast) var(--ease-out); }
+.clusterLink:hover { background: var(--white); }
+.clusterTitle { font-size: var(--step-lead); letter-spacing: -0.02em; font-weight: 500; line-height: 1.2; }
+.clusterDesc { color: var(--ink-soft); max-width: 60ch; }
+.clusterMeta { font-size: var(--step-small); color: var(--ink-soft); }
+.clusterLink:hover .clusterTitle { text-decoration: underline; text-underline-offset: 0.2em; }
+
+.othersChapter { padding-block: var(--space-2xl); }
+.others { margin-top: var(--space-m); display: grid; gap: 4px; }
+.others a {
+  font-size: var(--step-title); line-height: 1.05; letter-spacing: var(--tracking-title);
+  text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.12em; text-decoration-thickness: 3px;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.others a:hover { text-decoration-color: var(--cyan); }
+
+@media (max-width: 900px) {
+  .whyHead, .h2, .copy, .forWhom, .signals, .cluster, .conceptStill, .conceptCopy { grid-column: 1 / -1; }
+  .copy, .forWhom, .signals, .cluster { margin-top: var(--space-l); }
+  .copy { font-size: 18px; }
+  .deliverables dt, .deliverables dd { grid-column: 1 / -1; padding-inline: var(--space-s); }
+  .deliverables dd { margin-top: var(--space-2xs); }
+}

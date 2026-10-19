@@ -1,0 +1,105 @@
+/* =============================================================================
+   Finestkraft design tokens
+   Primitives come from the Figma colour styles. Spacing and type tiers come from
+   clustering the incumbent hero CSS (scripts/cluster-tokens.mjs →
+   design/tokens.clusters.json); the section tier is an extension for long pages.
+   See DESIGN.md for when to use each.
+   ============================================================================= */
+
+:root {
+  /* ---------- Colour primitives (Figma styles) ---------- */
+  --white: #ffffff;
+  --off-white: #f9ffff;   /* cyan-tinted paper */
+  --warm-white: #fbfafa;  /* neutral paper */
+  --light-grey: #d9d9d9;
+  --mid-grey: #3f3f3f;
+  --cyan: #00ffff;
+  --black: #000000;
+  --bg: #101010;
+
+  /* cyan ramp: one hue, dark to light, for ordered sequences (process stages) */
+  --cyan-900: #002e2e;
+  --cyan-700: #005c5c;
+  --cyan-500: #00a8a8;
+  --cyan-300: #00ffff;
+  --cyan-100: #b8ffff;
+
+  /* ---------- Semantic colour (default chapter: ink) ---------- */
+  --field: var(--bg);
+  --ink: var(--white);
+  --ink-soft: var(--light-grey);
+  --action-bg: var(--cyan);
+  --action-ink: var(--black);
+  --focus: var(--cyan);
+  --selection-bg: var(--cyan);
+  --selection-ink: var(--black);
+
+  /* ---------- Type ---------- */
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-serif: var(--font-hedvig), Georgia, serif;   /* hero accent only */
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace; /* clock and code only */ /* taste-skill-ignore: token for the brand clock face */
+
+  /* five steps: two clustered tiers (text, display), each split in two, plus a lead */
+  --step-small: 14px;                                  /* text tier, low */
+  --step-body: 18px;                                   /* text tier, high */
+  --step-lead: clamp(20px, 1.6vw, 26px);               /* statements, specimen names */
+  --step-title: clamp(40px, 5vw, 72px);                /* display tier, low: hero h1, section titles */
+  --step-display: clamp(52px, 8.4vw, 148px);           /* display tier, high: chapter headings */
+
+  --leading-tight: 0.97;
+  --leading-display: 0.94;
+  --leading-text: 1.5;
+  --tracking-display: -0.035em;
+  --tracking-title: -0.03em;
+  --tracking-text: -0.005em;
+  --measure: 62ch;
+
+  /* ---------- Space (clustered tiers) ---------- */
+  --space-2xs: 8px;    /* tight tier: 8, 10, 14 */
+  --space-xs: 12px;
+  --space-s: 20px;     /* group tier: 20, 22, 24, 28 */
+  --space-m: 28px;
+  --space-l: 40px;     /* separation tier: 34 … 56 */
+  --space-xl: 56px;
+  /* extension: section tier for long pages (taste: 120–240px between sections) */
+  --space-2xl: clamp(72px, 9vw, 128px);
+  --space-3xl: clamp(96px, 14vw, 200px);
+
+  /* ---------- Layout ---------- */
+  --gutter: 40px;         /* page side margin */
+  --left-col: 360px;      /* hero left column */
+  --grid-gap: 24px;
+  --max: 1680px;
+
+  /* ---------- Shape ---------- */
+  --radius: 0;            /* square everywhere; the cut corner is the only shaping device */
+  --chamfer: 12px;        /* button cut */
+  --chamfer-lg: clamp(28px, 4vw, 64px); /* chapter and frame cut */
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);   /* exponential ease-out */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 450ms;
+  --dur-slow: 1100ms;
+  --stagger: 80ms;
+  --rise: 24px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gutter: 20px;
+    --grid-gap: 16px;
+    --chamfer: 10px;
+    --step-body: 17px;
+  }
+}
+
+/* ---------- Chapter themes: a field colour with its assigned inks ----------
+   Set on any element with data-chapter; children read the semantic tokens. */
+[data-chapter="ink"]   { --field: var(--bg);         --ink: var(--white); --ink-soft: var(--light-grey); --action-bg: var(--cyan);  --action-ink: var(--black); --focus: var(--cyan); }
+[data-chapter="steel"] { --field: var(--mid-grey);   --ink: var(--white); --ink-soft: var(--light-grey); --action-bg: var(--cyan);  --action-ink: var(--black); --focus: var(--cyan); }
+[data-chapter="paper"] { --field: var(--warm-white); --ink: var(--bg);    --ink-soft: var(--mid-grey);   --action-bg: var(--bg);    --action-ink: var(--cyan);  --focus: var(--bg); }
+[data-chapter="frost"] { --field: var(--off-white);  --ink: var(--bg);    --ink-soft: var(--mid-grey);   --action-bg: var(--bg);    --action-ink: var(--cyan);  --focus: var(--bg); }
+[data-chapter="fog"]   { --field: var(--light-grey); --ink: var(--bg);    --ink-soft: var(--mid-grey);   --action-bg: var(--bg);    --action-ink: var(--cyan);  --focus: var(--bg); }
+[data-chapter="cyan"]  { --field: var(--cyan);       --ink: var(--black); --ink-soft: #0a3d3d;           --action-bg: var(--bg);    --action-ink: var(--cyan);  --focus: var(--black); }

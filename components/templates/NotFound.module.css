@@ -1,0 +1,5 @@
+.page { min-height: 100svh; background: var(--field); color: var(--ink); padding: 48px 0 var(--space-2xl); }
+.body { margin-top: var(--space-2xl); display: grid; gap: var(--space-m); justify-items: start; }
+.title { font-size: var(--step-display); line-height: 0.92; letter-spacing: var(--tracking-display); }
+.text { font-size: var(--step-lead); }
+.links { display: grid; gap: var(--space-2xs); margin-bottom: var(--space-s); }

@@ -1,0 +1,14 @@
+.chapter { padding-bottom: var(--space-2xl); }
+.inner { display: flex; flex-direction: column; justify-content: space-between; }
+.title { font-size: clamp(64px, 10vw, 176px); line-height: 0.9; letter-spacing: -0.045em; }
+.title span { display: block; }
+.foot { margin-top: var(--space-2xl); align-items: end; row-gap: var(--space-m); }
+.text { grid-column: 1 / span 5; font-size: 20px; max-width: 40ch; }
+.action { grid-column: 7 / span 4; justify-self: start; }
+
+@media (max-width: 900px) {
+  .title { font-size: 15vw; }
+  .text, .action { grid-column: 1 / -1; }
+  .text { font-size: 17px; }
+  .action { justify-self: stretch; }
+}

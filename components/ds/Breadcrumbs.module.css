@@ -1,0 +1,12 @@
+.nav { font-size: var(--step-small); color: var(--ink-soft); }
+.list { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.item { display: inline-flex; align-items: center; gap: 10px; }
+.item [aria-current] { color: var(--ink); }
+.link {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.22em;
+  transition: color var(--dur-fast) var(--ease-out), text-decoration-color var(--dur-fast) var(--ease-out);
+}
+.link:hover { color: var(--ink); text-decoration-color: currentColor; }
+.sep { width: 6px; height: 10px; opacity: 0.6; }

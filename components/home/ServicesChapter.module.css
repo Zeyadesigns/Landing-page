@@ -1,0 +1,74 @@
+.layout { row-gap: var(--space-xl); }
+
+.intro { grid-column: 1 / span 3; align-self: start; position: sticky; top: var(--space-l); }
+.title { font-size: clamp(36px, 3.4vw, 52px); line-height: 1; letter-spacing: var(--tracking-title); }
+.lede { margin-top: var(--space-s); max-width: 30ch; }
+
+.field { margin-top: var(--space-l); display: grid; gap: var(--space-2xs); max-width: 320px; }
+.label { font-size: var(--step-small); color: var(--ink-soft); }
+.input {
+  height: 52px;
+  padding: 0 16px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  font-size: 18px;
+  color: var(--ink);
+  clip-path: polygon(var(--chamfer) 0, 100% 0, 100% 100%, 0 100%, 0 var(--chamfer));
+}
+.input::placeholder { color: #6b6b6b; }
+.input:focus-visible { outline: none; border-color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); } /* taste-skill-ignore: focus ring, not a resting shadow */
+
+/* Tiles: 4:5 and 8:5 in a three-column grid, 10px gaps */
+.tiles {
+  grid-column: 4 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  row-gap: var(--space-l);
+}
+.item { min-width: 0; }
+.item[data-shape="web"], .item[data-shape="product"] { grid-column: span 2; }
+.tileLink { display: grid; gap: 6px; }
+.tile {
+  position: relative;
+  container-type: inline-size;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--field);
+  color: var(--ink);
+}
+.item[data-shape="web"] .tile, .item[data-shape="product"] .tile { aspect-ratio: 8 / 5; }
+/* the brand cut on each tile's top-left */
+.tile { clip-path: polygon(var(--chamfer-lg) 0, 100% 0, 100% 100%, 0 100%, 0 var(--chamfer-lg)); }
+
+.name {
+  margin-top: var(--space-xs);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+.fact { font-size: 16px; color: var(--ink-soft); }
+.tileLink:hover .name, .tileLink:focus-visible .name { text-decoration-color: currentColor; }
+.tileLink:focus-visible { outline: none; }
+.tileLink:focus-visible .tile { outline: 3px solid var(--ink); outline-offset: -3px; }
+
+@media (max-width: 1100px) {
+  .intro { grid-column: 1 / -1; position: static; }
+  .tiles { grid-column: 1 / -1; }
+}
+@media (max-width: 768px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; row-gap: var(--space-m); }
+  .item[data-shape="web"], .item[data-shape="product"] { grid-column: 1 / -1; }
+  /* pair the two portrait tiles side by side */
+  .item[data-shape="web"] { order: 1; }
+  .item[data-shape="product"] { order: 2; }
+  .item[data-shape="brand"] { order: 3; }
+  .item[data-shape="deck"] { order: 4; }
+  .name { font-size: 17px; }
+  .fact { font-size: 15px; }
+}

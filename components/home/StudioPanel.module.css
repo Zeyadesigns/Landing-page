@@ -1,0 +1,63 @@
+.chapter { padding: 20px; }
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 110svh;
+  background: var(--field);
+  color: var(--ink);
+  display: grid;
+  grid-template-columns: 63fr 37fr;
+  grid-template-rows: auto 1fr;
+  padding: var(--space-xl);
+  clip-path: polygon(var(--chamfer-lg) 0, 100% 0, 100% 100%, 0 100%, 0 var(--chamfer-lg));
+}
+.statement {
+  grid-column: 1;
+  font-size: clamp(40px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: var(--tracking-title);
+}
+
+/* the picture: masked to the brand cut, cropped by the panel's bottom edge */
+.figure {
+  position: absolute;
+  left: var(--space-xl);
+  bottom: -9vw;
+  width: 38vw;
+  clip-path: polygon(14% 0, 100% 0, 100% 86%, 86% 100%, 0 100%, 0 14%);
+}
+.figure img { width: 100%; height: auto; }
+
+.blocks {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--space-xl);
+  max-width: 340px;
+}
+.block { display: grid; gap: var(--space-xs); font-size: 17px; }
+.sub { font-size: 22px; letter-spacing: -0.02em; font-weight: 500; }
+
+/* the signature move: the shutter opens on this picture once */
+html:global(.js) .figure[data-shutter] { clip-path: polygon(14% 0, 14% 0, 14% 100%, 0 100%, 0 14%, 0 14%); }
+html:global(.js) .figure[data-shutter] img { transform: scale(1.12); }
+html:global(.js) .figure[data-shutter]:global(.is-in) {
+  clip-path: polygon(14% 0, 100% 0, 100% 86%, 86% 100%, 0 100%, 0 14%);
+  transition: clip-path var(--dur-slow) var(--ease-out);
+}
+html:global(.js) .figure[data-shutter]:global(.is-in) img { transform: none; transition: transform 1.6s var(--ease-out); }
+
+@media (max-width: 900px) {
+  .chapter { padding: 10px; }
+  .panel { grid-template-columns: 1fr; min-height: 0; padding: var(--space-m) var(--space-s) 0; gap: var(--space-l); }
+  .statement { font-size: 8.5vw; }
+  .blocks { grid-column: 1; grid-row: auto; max-width: none; gap: var(--space-l); }
+  .figure { position: relative; left: auto; bottom: auto; width: 86vw; justify-self: center; margin-bottom: -22vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html:global(.js) .figure[data-shutter] { clip-path: polygon(14% 0, 100% 0, 100% 86%, 86% 100%, 0 100%, 0 14%); }
+  html:global(.js) .figure[data-shutter] img { transform: none; }
+}
