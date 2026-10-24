@@ -18,6 +18,7 @@
   inset: 0;
   z-index: -1;
   overflow: hidden;
+  contain: strict; /* the canvas repaints 30 times a second; keep that from touching the rest of the page */
   background: url("/homepage/hero-liquid-mobile.webp") center / cover no-repeat;
 }
 .bg[data-live] { background-image: none; }

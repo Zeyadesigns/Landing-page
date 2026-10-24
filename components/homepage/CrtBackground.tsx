@@ -19,7 +19,18 @@ type Layer = {
   transform: string;
 };
 
-const LAYER_RATIO = 1440 / 808; // both frames use the same 16:9-ish layer (866x486 on mobile)
+const LAYER_RATIO = 1440 / 808;
+
+/**
+ * The grille and scanlines are sized in device pixels, and the design was made (and Figma renders it)
+ * on a 2x screen, so the canvas always renders at 2x: 1x screens get the same look scaled down, and 3x
+ * phones skip the extra pixels, which they'd spend on a finer grille than the design has.
+ */
+const RENDER_SCALE = 2;
+/** The flicker and noise read the same at 30fps, and it halves the GPU work. */
+const FRAME_MS = 1000 / 30;
+/** Rendering holds while the page scrolls (the shader competes with scrolling for the GPU). */
+const SCROLL_IDLE_MS = 150; // both frames use the same 16:9-ish layer (866x486 on mobile)
 
 const LAYERS: { desktop: Layer; mobile: Layer } = {
   // 19:379, 1440x808 at the frame origin, mirrored horizontally. Covers the hero like the still does.
@@ -57,6 +68,7 @@ type Props = {
  * which browsers don't ship yet; the input here is one static image, so it is uploaded as the
  * input texture instead and the shader runs unchanged wherever WebGPU exists.
  * Until the first frame lands, and with no WebGPU or with reduced motion, the root shows the still.
+ * It draws at 30fps and holds while the page scrolls or the hero is off screen, to keep scrolling smooth.
  */
 export default function CrtBackground({ src, className, canvasClassName }: Props) {
   const [motionOk, setMotionOk] = useState(false);
@@ -89,7 +101,10 @@ function CrtCanvas({ src, className, onLive }: { src: string; className?: string
     let disposed = false;
     let raf: number | null = null;
     let last: number | null = null;
+    let drawn = -Infinity;
     let visible = true;
+    let scrolling = false;
+    let scrollTimer: ReturnType<typeof setTimeout> | undefined;
     let image: ImageBitmap | null = null;
     let input: GPUTexture | null = null;
     let layer = LAYERS.desktop;
@@ -109,7 +124,7 @@ function CrtCanvas({ src, className, onLive }: { src: string; className?: string
       deltaTime: 0,
       frame: 0,
       mousePosition: { x: 0, y: 0, down: false },
-      renderScale: window.devicePixelRatio || 1,
+      renderScale: RENDER_SCALE,
       params: layer.params,
       state: {} as Record<string, unknown>,
     };
@@ -128,12 +143,8 @@ function CrtCanvas({ src, className, onLive }: { src: string; className?: string
         height: `${box.height}px`,
         transform: layer.transform,
       });
-      // At least 2x: the grille and scanlines are sized in device pixels, and the design was made
-      // (and Figma renders it) on a 2x screen. 1x screens get the same look, scaled down.
-      const scale = Math.max(window.devicePixelRatio || 1, 2);
-      frame.renderScale = scale;
-      canvas.width = Math.max(Math.round(box.width * scale), 1);
-      canvas.height = Math.max(Math.round(box.height * scale), 1);
+      canvas.width = Math.max(Math.round(box.width * RENDER_SCALE), 1);
+      canvas.height = Math.max(Math.round(box.height * RENDER_SCALE), 1);
       if (!image) return;
       const sized = await createImageBitmap(image, {
         resizeWidth: canvas.width,
@@ -156,10 +167,15 @@ function CrtCanvas({ src, className, onLive }: { src: string; className?: string
       frame.input = input;
     };
 
-    // The runtime's clock: time advances only while frames are drawn.
+    // The runtime's clock: time advances only while frames are drawn, so a pause resumes where it left off.
     const tick = (ts: number) => {
       raf = null;
-      if (disposed || !visible || !frame.input) return;
+      if (disposed || !visible || scrolling || !frame.input) return;
+      if (ts - drawn < FRAME_MS - 2) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+      drawn = ts;
       frame.deltaTime = last == null ? 0 : ts - last;
       last = ts;
       frame.time += frame.deltaTime;
@@ -175,7 +191,7 @@ function CrtCanvas({ src, className, onLive }: { src: string; className?: string
       raf = requestAnimationFrame(tick);
     };
     const start = () => {
-      if (raf == null && visible && !document.hidden) {
+      if (raf == null && visible && !scrolling && !document.hidden) {
         last = null;
         raf = requestAnimationFrame(tick);
       }
@@ -192,6 +208,17 @@ function CrtCanvas({ src, className, onLive }: { src: string; className?: string
       else stop();
     });
     const onVisibility = () => (document.hidden ? stop() : start());
+    const onScroll = () => {
+      if (!scrolling) {
+        scrolling = true;
+        stop();
+      }
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        scrolling = false;
+        start();
+      }, SCROLL_IDLE_MS);
+    };
     const ro = new ResizeObserver(() => void layout().then(start));
     const onQuery = () => void layout().then(start);
 
@@ -206,6 +233,7 @@ function CrtCanvas({ src, className, onLive }: { src: string; className?: string
         ro.observe(host);
         desktopQuery.addEventListener("change", onQuery);
         document.addEventListener("visibilitychange", onVisibility);
+        window.addEventListener("scroll", onScroll, { passive: true });
         start();
       } catch (e) {
         console.warn("Failed to set up effect", e);
@@ -219,6 +247,8 @@ function CrtCanvas({ src, className, onLive }: { src: string; className?: string
       ro.disconnect();
       desktopQuery.removeEventListener("change", onQuery);
       document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(scrollTimer);
       cleanupCrt(device, frame as unknown as CustomEffectState);
       input?.destroy();
       image?.close();
