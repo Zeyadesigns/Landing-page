@@ -225,4 +225,70 @@ export const homepage = {
       link: "Get a custom quote →",
     },
   },
+
+  testimonials: {
+    headline: { lead: "Kind words from people I've", accent: "built with." },
+    intro: "Founders I've worked with over the years.",
+    /** The first is the large featured quote; the rest sit in pairs below it. */
+    items: [
+      {
+        quote: "His passion for design is unmatched. He's willing to spend hours perfecting his work and going beyond his given tasks.",
+        name: "Fatos Cunaku",
+        role: "Founder, RaveCultur (688K+ followers)",
+      },
+      {
+        quote: "Zeyad's reliability is unmatched. He consistently delivers on his commitments and has a remarkable ability to meet deadlines, even under pressure.",
+        name: "Ryan O'Shaughnessy",
+        role: "Owner, Medtronica",
+      },
+      {
+        quote: "I remain impressed with his driven work ethic and ability to work creatively with not so much information.",
+        name: "Rens Couwenberg",
+        role: "Owner, Advertime Media",
+      },
+    ],
+  },
+
+  faq: {
+    headline: { lead: "Frequently asked", accent: "questions" },
+    /** The first item starts open. Only its answer is in Figma; the others are drafts to review. */
+    items: [
+      {
+        q: "What happens on the discovery call?",
+        a: "We spend 30 minutes on your product, your customers and what you need. If it's a fit, you get a clear scope, a timeline and the plan that suits you.",
+      },
+      {
+        // Draft, from the pricing tiers.
+        q: "How long does a project take?",
+        a: "A Sprint ships in 14 days and a Retainer runs for a month. Anything bigger gets its own timeline, agreed with the scope after the discovery call.",
+      },
+      {
+        // Draft, from the (hidden) Project Approach copy in Figma.
+        q: "How involved do I need to be?",
+        a: "Mostly at three points: the discovery call, choosing one of the creative directions, and the revision rounds while I refine it into your brand and website.",
+      },
+      {
+        // No source copy yet: write this one.
+        q: "Do you work alone or with a team?",
+        a: "Answer to come.",
+      },
+      {
+        // Draft, from the current site's website service page.
+        q: "Do you only build in Framer?",
+        a: "No. I usually build in Next.js on Vercel, because it's fast and easy to grow with. If you'd rather edit the site yourself without code, we can talk about Framer or Webflow on the call.",
+      },
+      {
+        // Draft, from the pricing tiers.
+        q: "How do payments work?",
+        a: "It depends on the plan: a Sprint is paid upfront, a Retainer starts with 50%, and Partner is billed monthly at $4,000. Custom projects get their terms with the quote.",
+      },
+    ],
+    closing: {
+      // Figma has "Still Deciding?" on desktop and "Still deciding?" on mobile.
+      headline: { lead: "Still", accent: "deciding?" },
+      body: "Here's the questions founders ask most. Anything else, ask me on the call.",
+      cta: "Book a Discovery Call",
+      headshot: { src: "/homepage/headshot.webp", alt: "Zeyad, who runs Finestkraft" },
+    },
+  },
 };
