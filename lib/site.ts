@@ -18,10 +18,13 @@ export const site = {
   locale: "en_US",
   /** Booking destination (Cal.com, Calendly…). Undecided: unset falls back to /contact. */
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL || "",
-  /** Contact email. Undecided: unset hides email everywhere. */
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
-  /** Public profiles for schema.org sameAs, comma-separated. */
-  sameAs: (process.env.NEXT_PUBLIC_SAME_AS || "").split(",").map((s) => s.trim()).filter(Boolean),
+  /** Contact email. NEXT_PUBLIC_CONTACT_EMAIL overrides it. */
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "zeyad@finestkraft.com",
+  /** Public profiles (footer links and schema.org sameAs). NEXT_PUBLIC_SAME_AS (comma-separated) overrides them. */
+  sameAs: (process.env.NEXT_PUBLIC_SAME_AS || "https://x.com/zeyadesign,https://www.linkedin.com/in/zeiiyadsalih/")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean),
 } as const;
 
 /** Where every "Book a discovery call" action goes. */

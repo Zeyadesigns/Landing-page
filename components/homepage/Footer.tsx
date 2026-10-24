@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import StudioClock from "./StudioClock";
+import CopyEmail from "./CopyEmail";
 import { homepage } from "@/content/homepage";
 import styles from "./Footer.module.css";
 
@@ -21,7 +22,7 @@ function MaybeLink({ href, className, children }: { href: string; className?: st
 
 /** Figma "Footer": brand left, links on the second column with the booking link at the end, then the legal row. */
 export default function Footer() {
-  const { tagline, links, book, copyright, legal } = homepage.footer;
+  const { tagline, links, email, book, copyright, legal } = homepage.footer;
   return (
     <footer className={styles.footer} data-chapter="ink">
       <div className={styles.top}>
@@ -40,6 +41,11 @@ export default function Footer() {
                 </MaybeLink>
               </li>
             ))}
+            {email.address && (
+              <li>
+                <CopyEmail address={email.address} label={email.label} copied={email.copied} className={`${styles.link} ${styles.copy}`} />
+              </li>
+            )}
           </ul>
           <MaybeLink href={book.href} className={styles.book}>
             {book.label}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Button from "@/components/ds/Button";
 import { homepage } from "@/content/homepage";
 import { bookHref } from "@/lib/site";
+import TierRows from "./TierRows";
 import styles from "./Pricing.module.css";
 
 function Tick() {
@@ -27,7 +28,9 @@ export default function Pricing() {
           <li key={t.name} className={[styles.card, t.featured && styles.featured].filter(Boolean).join(" ")}>
             {t.featured && <p className={styles.tag}>{recommended}</p>}
             <h3 className={styles.name}>{t.name}</h3>
-            <p className={styles.description}>{t.description}</p>
+            <p className={styles.description} data-tier-description>
+              {t.description}
+            </p>
             <p className={styles.price}>{t.price}</p>
             <p className={styles.terms}>{t.terms}</p>
             <div className={styles.action}>
@@ -46,6 +49,8 @@ export default function Pricing() {
           </li>
         ))}
       </ul>
+
+      <TierRows selector="[data-tier-description]" />
 
       <div className={styles.custom}>
         <p className={styles.customCopy}>

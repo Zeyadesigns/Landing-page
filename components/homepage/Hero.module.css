@@ -7,9 +7,21 @@
   flex-direction: column;
   min-height: clamp(444px, calc(444px + (100vw - 390px) * 0.3467), 808px);
   padding: 0 var(--gutter) clamp(85px, calc(139px - (100vw - 390px) * 0.0514), 139px);
-  background: var(--field) url("/homepage/hero-liquid-mobile.webp") center / cover no-repeat;
+  background: var(--field);
   color: var(--ink);
 }
+
+/* The Figma "Liquid Gradient" layer: a live CRT shader (CrtBackground), over the baked still that
+   shows until its first frame, and stays for reduced motion or without WebGPU. */
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: url("/homepage/hero-liquid-mobile.webp") center / cover no-repeat;
+}
+.bg[data-live] { background-image: none; }
+.crt { position: absolute; display: block; pointer-events: none; }
 
 /* ---------- Navigation ---------- */
 .nav {
@@ -39,39 +51,67 @@
 }
 .tz { white-space: nowrap; }
 
-/* outlined, chamfered secondary action: teal keyline, no fill, so the gradient shows through */
-.outline {
-  --cut: clamp(8px, calc(8px + (100vw - 390px) * 0.0076), 16px); /* not --c: Button registers that name */
-  --line: #14b4b4;
+/* Chamfered nav action, Figma's "secondary CTA": 199x49 with 14.33px cuts at 1440, 156x36 with 10px cuts
+   at 390. .outline draws the 1px cyan keyline as one ring (an even-odd polygon: the outer shape with the
+   inner one cut out), so the cut corners join cleanly; .solid is the filled version used in the sticky bar. */
+.outline,
+.solid {
+  --cut: clamp(10px, calc(10px + (100vw - 390px) * 0.004124), 14.33px);
+  --line: 1px;
+  --k: calc(var(--cut) + var(--line) * 0.4142); /* the cut moved in by the line, along the 45deg edge */
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: clamp(36px, calc(36px + (100vw - 390px) * 0.0133), 50px);
-  padding: 0 clamp(14px, calc(14px + (100vw - 390px) * 0.0057), 20px);
+  height: clamp(36px, calc(36px + (100vw - 390px) * 0.01238), 49px);
+  padding: 0 clamp(15.3px, calc(15.3px + (100vw - 390px) * 0.006714), 22.35px);
   margin-right: clamp(0px, calc((100vw - 390px) * 0.0076), 8px);
-  border: 1.5px solid var(--line);
-  color: var(--color-warm-white);
   font-size: clamp(13px, calc(13px + (100vw - 390px) * 0.0029), 16px);
   font-weight: 500;
   letter-spacing: -0.01em;
   white-space: nowrap;
   clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
-  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
 }
-/* the two cut corners lose their border to the clip, so draw the diagonals */
-.outline::before,
-.outline::after {
+.outline { color: var(--color-warm-white); }
+.outline::before {
   content: "";
   position: absolute;
-  width: var(--cut);
-  height: var(--cut);
-  background: linear-gradient(to top left, transparent calc(50% - 2.2px), var(--line) calc(50% - 2.2px), var(--line) 50%, transparent 50%);
+  inset: 0;
+  background: var(--color-cyan);
+  clip-path: polygon(
+    evenodd,
+    var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut), var(--cut) 0,
+    var(--k) var(--line), var(--line) var(--k), var(--line) calc(100% - var(--line)),
+    calc(100% - var(--k)) calc(100% - var(--line)), calc(100% - var(--line)) calc(100% - var(--k)),
+    calc(100% - var(--line)) var(--line), var(--k) var(--line)
+  );
+  pointer-events: none;
 }
-.outline::before { top: -1.5px; left: -1.5px; }
-.outline::after { right: -1.5px; bottom: -1.5px; transform: rotate(180deg); }
-.outline:hover { background: color-mix(in srgb, var(--cyan) 14%, transparent); }
-.outline:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--cyan); } /* clip-path hides outline */
+.outline:hover { background: color-mix(in srgb, var(--color-cyan) 14%, transparent); }
+.solid { background: var(--color-cyan); color: var(--color-black); }
+.solid:hover { filter: brightness(1.12); }
+.outline:focus-visible,
+.solid:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--color-white); } /* clip-path hides outline */
+
+/* Sticky bar (StickyNav): the nav row on black, without the clock. Off screen until scrolling up. */
+.bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(10px, calc(10px + (100vw - 390px) * 0.0038), 14px) var(--gutter);
+  background: var(--color-black);
+  transform: translateY(-100%);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.bar[data-shown] { transform: none; }
+.bar .logo { margin-block: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .bar { transition: none; }
+}
 
 /* ---------- Copy ---------- */
 .copy {
@@ -120,7 +160,8 @@
 
 /* ---------- Tablet and up: copy aligns left on the Figma column ---------- */
 @media (min-width: 769px) {
-  .hero { background-image: url("/homepage/hero-liquid.webp"); }
+  .bg { background-image: url("/homepage/hero-liquid.webp"); }
+  .bg[data-live] { background-image: none; }
   .copy { align-items: flex-start; text-align: left; padding-left: calc(var(--col-left) - var(--gutter)); }
   .headline { margin-left: -0.06em; max-width: 8.8em; } /* the Figma text box: "Design that makes / customers lean in." */
   .subhead { color: var(--ice); }
@@ -132,13 +173,15 @@
 @media (min-width: 1441px) {
   .hero { --gutter: min(2.778vw, 53.3px); min-height: min(56.11vw, 1077px); padding-bottom: min(5.903vw, 113px); }
   .nav { padding-top: min(2.639vw, 50.7px); }
+  .bar { --gutter: min(2.778vw, 53.3px); padding-block: min(0.972vw, 18.7px); }
   .logo { width: min(3.819vw, 73.3px); margin: min(0.556vw, 10.7px) 0 min(0.556vw, 10.7px) min(0.556vw, 10.7px); }
   .navEnd { gap: min(1.528vw, 29.3px); }
   .clock { font-size: min(1.111vw, 21.3px); gap: min(0.556vw, 10.7px); }
-  .outline {
-    --cut: min(1.111vw, 21.3px);
-    height: min(3.472vw, 66.7px);
-    padding: 0 min(1.389vw, 26.7px);
+  .outline,
+  .solid {
+    --cut: min(0.995vw, 19.1px);
+    height: min(3.403vw, 65.3px);
+    padding: 0 min(1.552vw, 29.8px);
     margin-right: min(0.556vw, 10.7px);
     font-size: min(1.111vw, 21.3px);
   }

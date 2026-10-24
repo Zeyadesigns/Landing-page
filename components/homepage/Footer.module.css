@@ -23,6 +23,31 @@
   transition: color var(--dur-fast) var(--ease-out);
 }
 a.link:hover { color: var(--color-cyan); }
+
+/* Email: a button that copies the address; "Copied" fades in over the label, in the same cell */
+.copy {
+  display: inline-grid;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: clamp(14px, calc(14px + (100vw - 390px) * 0.0019), 16px);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.copy [data-label] {
+  grid-area: 1 / 1;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+.copy [data-label]:last-child { opacity: 0; transform: translateY(4px); color: var(--color-cyan); }
+.copy[data-copied] [data-label]:first-child { opacity: 0; transform: translateY(-4px); }
+.copy[data-copied] [data-label]:last-child { opacity: 1; transform: none; }
+.copy:hover { color: var(--color-cyan); }
+.copy:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .copy [data-label] { transition: none; transform: none !important; }
+}
 .book { display: inline-block; margin-top: 7px; color: var(--color-cyan); }
 a.book:hover { text-decoration: underline; text-underline-offset: 4px; }
 

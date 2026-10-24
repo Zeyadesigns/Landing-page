@@ -298,16 +298,17 @@ export const homepage = {
   },
 
   /**
-   * An empty href renders the label as plain text, so the footer keeps its Figma look until a link exists.
-   * Socials and email default to NEXT_PUBLIC_SAME_AS and NEXT_PUBLIC_CONTACT_EMAIL (see README).
+   * Socials and the email come from lib/site.ts. An empty href renders the label as plain text, so the
+   * footer keeps its Figma look until a link exists.
    */
   footer: {
     tagline: "Brand and web studio for tech and AI founders.",
     links: [
       { label: "X (Twitter)", href: profile(/\/\/(www\.)?(x|twitter)\.com\//) },
       { label: "LinkedIn", href: profile(/\/\/([a-z]+\.)?linkedin\.com\//) },
-      { label: "Email", href: site.email ? `mailto:${site.email}` : "" },
     ],
+    /** Copies the address to the clipboard instead of opening a mail app. */
+    email: { label: "Email", copied: "Copied", address: site.email },
     book: { label: "Book a Discovery Call", href: bookHref },
     copyright: "© 2026 Finestkraft LLC",
     // "Privacy Policy" on desktop, "Privacy" on mobile, as in the frames

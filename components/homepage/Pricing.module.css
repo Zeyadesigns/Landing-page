@@ -177,15 +177,19 @@
     gap: 32px;
     max-width: none;
   }
-  .description { text-wrap: balance; } /* the Figma breaks: "One focused project, / shipped in 14 days" */
+  /* the Figma breaks ("One focused project, / shipped in 14 days"); two lines tall at least, so the
+     rows below line up across cards before TierRows evens out longer wraps */
+  .description { text-wrap: balance; min-height: calc(2 * 22.4px); }
   .featured {
     --cut: 34px;
     padding: 33px 19.4% 47px; /* Figma's feature frame keeps ~13px spare below the list */
   }
-  .featured .price { margin-top: 37px; }
+  /* the Retainer's rows follow the dark cards' fluid gaps (Figma: its title is 8px taller, its
+     padding 7px less, its button 2px shorter), so prices, buttons and lists share a line */
+  .featured .price { margin-top: calc(clamp(27px, calc(27px + (100vw - 390px) * 0.0114), 39px) - 2px); }
   .featured .action {
     margin-top: 21px;
     filter: drop-shadow(0 18px 5.5px rgb(0 0 0 / 0.05)) drop-shadow(0 8px 4px rgb(0 0 0 / 0.09)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.1));
   }
-  .featured .features { margin-top: 51px; }
+  .featured .features { margin-top: calc(clamp(28px, calc(28px + (100vw - 390px) * 0.02), 49px) + 2px); }
 }

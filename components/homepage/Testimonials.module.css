@@ -70,12 +70,22 @@
   .featured, .pair { margin-left: 10.28%; } /* 116 / 1128 */
   .featured .text { line-height: 1.15; max-width: none; width: calc(774 / 1012 * 100%); } /* of the indented figure */
   .person { margin-top: 40px; }
+  /* the pair runs to the column's edge (466 / 432, the second starting at Figma's x=852) so the third
+     quote sets in three lines; names sit on one line at the foot of the taller quote */
   .pair {
-    width: calc(905 / 1128 * 100%); /* of the column: 466 + 114 + 325 */
-    grid-template-columns: 466fr 325fr;
-    column-gap: calc(114 / 905 * 100%);
+    width: calc(1012 / 1128 * 100%);
+    grid-template-columns: 466fr 432fr;
+    column-gap: calc(114 / 1012 * 100%);
     margin-top: 76px;
   }
-  .pair .text { margin-top: 0; line-height: 1.3; }
+  .pair .quote { display: flex; flex-direction: column; }
+  /* 4px of overhang past the column: the third quote needs 434px for three lines at 1440 */
+  .pair .text {
+    flex: 1;
+    margin-top: 0;
+    margin-right: -4px;
+    font-size: clamp(20px, 1.6667vw, 24px); /* 24px at 1440, scaling with the columns below it */
+    line-height: 1.3;
+  }
   .markSmall { display: none; } /* desktop shows the mark on the featured quote only */
 }
