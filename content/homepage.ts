@@ -5,9 +5,10 @@
 
 /**
  * One gallery image. w/h are the Figma frame size: they set the aspect ratio and the share of the row.
- * `video` plays over the image (muted, looping) unless the visitor prefers reduced motion.
+ * `video` plays over the image (muted, looping) unless the visitor prefers reduced motion; list WebM first,
+ * then an MP4 fallback. The image is the poster and what reduced-motion visitors see.
  */
-export type ProjectImage = { src: string; alt: string; w: number; h: number; position?: string; video?: string };
+export type ProjectImage = { src: string; alt: string; w: number; h: number; position?: string; video?: string[] };
 export type Project = { name: string; services: string; rows: ProjectImage[][] };
 export type Tier = {
   name: string;
@@ -55,7 +56,10 @@ export const homepage = {
           [
             img("gearz-4", "Gearz colour palette: Cyber Yellow, Silver and Snow", 317, 396),
             img("gearz-5", "Gearz business cards", 317, 396),
-            img("gearz-6", "Gearz G monogram inside a speedometer ring", 432, 396),
+            {
+              ...img("gearz-6", "Gearz splash screen: the G monogram unfolds into the Gearz wordmark", 432, 396),
+              video: ["/homepage/work/gearz-6.webm", "/homepage/work/gearz-6.mp4"],
+            },
           ],
         ],
       },
@@ -86,7 +90,7 @@ export const homepage = {
           ],
           [
             img("answerica-5", "Answerica in a browser tab", 432, 324),
-            { ...img("answerica-6", "Answerica symbol cycling through the brand colours", 432, 324), video: "/homepage/work/answerica-6.mp4" },
+            { ...img("answerica-6", "Answerica symbol cycling through the brand colours", 432, 324), video: ["/homepage/work/answerica-6.webm", "/homepage/work/answerica-6.mp4"] },
             img("answerica-7", "Answerica icon set", 200, 324),
           ],
         ],

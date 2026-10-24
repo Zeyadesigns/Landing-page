@@ -42,7 +42,7 @@ export default function Work({ projects, headline }: Props) {
                             quality={90}
                             style={im.position ? { objectPosition: im.position } : undefined}
                           />
-                          {im.video && <LoopVideo src={im.video} />}
+                          {im.video && <LoopVideo sources={im.video} />}
                         </div>
                       ))}
                     </div>

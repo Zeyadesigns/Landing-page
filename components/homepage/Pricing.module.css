@@ -1,6 +1,7 @@
 /* Pricing from the Figma frames: three cards in a 316 / 432 / 316 row at 1440, stacked at 390. */
 .pricing {
-  padding: clamp(97px, calc(97px + (100vw - 390px) * 0.06), 160px) var(--col-left)
+  /* top: Figma has 160 / 97; opened to 240 / 128 so Pricing reads as its own chapter after the work */
+  padding: clamp(128px, calc(128px + (100vw - 390px) * 0.1067), 240px) var(--col-left)
     clamp(96px, calc(96px + (100vw - 390px) * 0.0724), 172px);
   background: var(--field);
   color: var(--ink);
