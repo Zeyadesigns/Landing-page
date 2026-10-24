@@ -1,3 +1,7 @@
+import { bookHref, site } from "@/lib/site";
+
+const profile = (domain: RegExp) => site.sameAs.find((u) => domain.test(u)) ?? "";
+
 /**
  * Homepage copy, in one place. The copy is not final: edit strings here, not in components.
  * Sections are added as they are built from the Figma frames.
@@ -268,9 +272,10 @@ export const homepage = {
         a: "Mostly at three points: the discovery call, choosing one of the creative directions, and the revision rounds while I refine it into your brand and website.",
       },
       {
-        // No source copy yet: write this one.
+        // No source copy yet: write this one, then remove `draft`.
         q: "Do you work alone or with a team?",
         a: "Answer to come.",
+        draft: true,
       },
       {
         // Draft, from the current site's website service page.
@@ -290,5 +295,25 @@ export const homepage = {
       cta: "Book a Discovery Call",
       headshot: { src: "/homepage/headshot.webp", alt: "Zeyad, who runs Finestkraft" },
     },
+  },
+
+  /**
+   * An empty href renders the label as plain text, so the footer keeps its Figma look until a link exists.
+   * Socials and email default to NEXT_PUBLIC_SAME_AS and NEXT_PUBLIC_CONTACT_EMAIL (see README).
+   */
+  footer: {
+    tagline: "Brand and web studio for tech and AI founders.",
+    links: [
+      { label: "X (Twitter)", href: profile(/\/\/(www\.)?(x|twitter)\.com\//) },
+      { label: "LinkedIn", href: profile(/\/\/([a-z]+\.)?linkedin\.com\//) },
+      { label: "Email", href: site.email ? `mailto:${site.email}` : "" },
+    ],
+    book: { label: "Book a Discovery Call", href: bookHref },
+    copyright: "© 2026 Finestkraft LLC",
+    // "Privacy Policy" on desktop, "Privacy" on mobile, as in the frames
+    legal: [
+      { label: "Privacy Policy", short: "Privacy", href: "" },
+      { label: "Terms", short: "Terms", href: "" },
+    ],
   },
 };

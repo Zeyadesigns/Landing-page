@@ -1,43 +1,39 @@
-import Hero from "@/components/home/Hero";
-import ServicesChapter from "@/components/home/ServicesChapter";
-import WorkFolders from "@/components/home/WorkFolders";
-import ProcessAccordion from "@/components/home/ProcessAccordion";
-import PricingStatement from "@/components/home/PricingStatement";
-import StudioPanel from "@/components/home/StudioPanel";
-import InsightsTable from "@/components/home/InsightsTable";
-import FaqBands from "@/components/ds/FaqBands";
-import CtaInverted from "@/components/ds/CtaInverted";
+import Hero from "@/components/homepage/Hero";
+import Work from "@/components/homepage/Work";
+import Pricing from "@/components/homepage/Pricing";
+import Testimonials from "@/components/homepage/Testimonials";
+import Faq from "@/components/homepage/Faq";
+import Footer from "@/components/homepage/Footer";
 import JsonLd from "@/components/seo/JsonLd";
-import { faqs } from "@/content/studio";
-import { services } from "@/content/services";
+import { homepage } from "@/content/homepage";
 import { pageMetadata } from "@/lib/seo";
-import { faqNode, graph, ids, itemList, serviceNode, webPage } from "@/lib/schema";
+import { faqNode, graph, ids, webPage } from "@/lib/schema";
 import { site } from "@/lib/site";
 
 const title = "Finestkraft | Brand & Web Studio for Tech and AI";
 
 export const metadata = pageMetadata({ path: "/", title, description: site.description, absoluteTitle: true });
 
+// The homepage from the Figma file (desktop 1440, mobile 390). Copy lives in content/homepage.ts.
 export default function Home() {
   return (
     <>
       <JsonLd
         data={graph(
           webPage({ path: "/", name: title, description: site.description, mainEntity: ids.org }),
-          ...services.map(serviceNode),
-          itemList("/", "Services", services.map((s) => ({ name: s.name, path: `/services/${s.slug}` }))),
-          faqNode("/", faqs),
+          faqNode(
+            "/",
+            homepage.faq.items.filter((f) => !("draft" in f && f.draft)),
+          ),
         )}
       />
       <Hero />
-      <ServicesChapter />
-      <WorkFolders />
-      <ProcessAccordion />
-      <PricingStatement />
-      <StudioPanel />
-      <FaqBands title="Before you book" items={faqs} />
-      <InsightsTable />
-      <CtaInverted />
+      <Work headline={homepage.work.headline} projects={homepage.work.projects} />
+      <Pricing />
+      <Work projects={homepage.work.more} />
+      <Testimonials />
+      <Faq />
+      <Footer />
     </>
   );
 }

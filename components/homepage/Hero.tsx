@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import Button from "@/components/ds/Button";
-import StudioClock from "@/components/home/StudioClock";
+import StudioClock from "./StudioClock";
 import { homepage } from "@/content/homepage";
 import { bookHref } from "@/lib/site";
 import styles from "./Hero.module.css";

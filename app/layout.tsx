@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Hedvig_Letters_Serif, Manrope } from "next/font/google"; // taste-skill-ignore: brand face for the hero clock (PRODUCT.md)
-import SiteFooter from "@/components/ds/SiteFooter";
 import Motion from "@/components/ds/Motion";
 import { isIndexable, site } from "@/lib/site";
 import "./globals.css";
@@ -65,7 +64,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <main id="main">{children}</main>
-        <SiteFooter />
         <Motion />
       </body>
     </html>

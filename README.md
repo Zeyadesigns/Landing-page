@@ -26,13 +26,15 @@ Search indexing is on only for Vercel production (`VERCEL_ENV=production`); prev
 ## Structure
 
 ```
-app/                  routes (one folder per template) + sitemap, robots, manifest, icons, OG images, RSS, llms.txt
+app/                  the homepage (page.tsx) + sitemap, robots, manifest, icons, OG images, llms.txt
+app/(site)/           the inner routes (one folder per template, RSS) and their layout with the site footer
 components/ds/        design-system components: Button, Chapter, SiteHeader, SiteFooter, Breadcrumbs, FaqBands, CtaInverted, TimeBridge, BriefBuilder, Motion
-components/home/      home-page chapters
+components/homepage/  the homepage, built from the Figma file: Hero, Work, Pricing, Testimonials, Faq, Footer
+components/home/      WorkFolders (the concept-work list on /work)
 components/templates/ page templates: PageIntro, Prose, and the CSS for pillar, article, case study, hub, studio, contact
 components/specimens/ the four drawn service specimens (take a company name)
 components/concepts/  drawn stills of the concept projects
-content/              all copy and data: services, insights, work, studio, credits
+content/              all copy and data: homepage, services, insights, work, studio, credits
 lib/                  site config, metadata builder, schema.org builders, OG image renderer
 styles/               tokens.css (the design tokens) and type.css (the five type roles)
 design/               incumbent hero CSS and the clustered token report
