@@ -1,0 +1,191 @@
+/* Pricing from the Figma frames: three cards in a 316 / 432 / 316 row at 1440, stacked at 390. */
+.pricing {
+  /* top: Figma has 160 / 97; opened to 240 / 128 so Pricing reads as its own chapter after the work */
+  padding: clamp(128px, calc(128px + (100vw - 390px) * 0.1067), 240px) var(--col-left)
+    clamp(96px, calc(96px + (100vw - 390px) * 0.0724), 172px);
+  background: var(--field);
+  color: var(--ink);
+  text-align: center;
+}
+
+.headline {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(32px, calc(32px + (100vw - 390px) * 0.0286), 62px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: wrap; /* the global balance re-breaks the Figma lines */
+}
+.headline em { font-family: var(--font-serif); font-style: normal; font-weight: 400; }
+
+.intro {
+  max-width: clamp(256px, calc(256px + (100vw - 390px) * 0.83), 1128px);
+  margin: clamp(6px, calc(6px + (100vw - 390px) * 0.0095), 16px) auto 0;
+  font-size: clamp(15px, calc(15px + (100vw - 390px) * 0.0029), 18px);
+  font-weight: 300;
+  line-height: 1.43;
+  color: var(--ink-soft);
+}
+
+/* ---------- Cards ---------- */
+.tiers {
+  list-style: none;
+  display: grid;
+  gap: 16px;
+  max-width: 432px;
+  margin: clamp(40px, calc(58px - (100vw - 390px) * 0.0171), 58px) auto 0;
+  text-align: left;
+}
+
+/* chamfered card with a 1px keyline: the outer box paints the keyline, ::before paints the fill 1px in */
+.card {
+  --cut: clamp(24px, calc(24px + (100vw - 390px) * 0.0038), 28px);
+  --edge: linear-gradient(to bottom right, #2e2e2e, #4d4d4d 90%); /* Figma: #999 → white at 30% over black */
+  --fill: var(--color-black);
+  --ink: var(--color-white);
+  --ink-soft: var(--color-light-grey);
+  --tick: var(--color-cyan);
+  --action-bg: var(--color-warm-white);
+  --action-ink: var(--color-black);
+  position: relative;
+  isolation: isolate;
+  padding: clamp(37px, calc(37px + (100vw - 390px) * 0.0029), 40px) clamp(24px, calc(24px + (100vw - 390px) * 0.0038), 28px)
+    clamp(33px, calc(33px + (100vw - 390px) * 0.0076), 41px);
+  background: var(--edge);
+  color: var(--ink);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+.card::before {
+  --c2: calc(var(--cut) - 0.41px); /* the cut moved in by the 1px keyline */
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: var(--fill);
+  clip-path: polygon(var(--c2) 0, 100% 0, 100% calc(100% - var(--c2)), calc(100% - var(--c2)) 100%, 0 100%, 0 var(--c2));
+}
+.featured {
+  --edge: var(--color-black);
+  --fill: var(--color-warm-white);
+  --ink: var(--color-black);
+  --ink-soft: var(--color-mid-grey);
+  --tick: var(--color-black);
+  --action-bg: var(--color-black);
+  --action-ink: var(--color-white);
+}
+
+.tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 12px;
+  height: clamp(26px, calc(26px + (100vw - 390px) * 0.0019), 28px);
+  display: flex;
+  align-items: center;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: clamp(13px, calc(13px + (100vw - 390px) * 0.001), 14px);
+  font-weight: 500;
+}
+
+.name {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(28px, calc(28px + (100vw - 390px) * 0.0038), 32px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.featured .name { font-size: clamp(28px, calc(28px + (100vw - 390px) * 0.0114), 40px); }
+.description {
+  margin-top: 12px;
+  font-size: clamp(15px, calc(15px + (100vw - 390px) * 0.001), 16px);
+  font-weight: 300;
+  line-height: clamp(21.75px, calc(21.75px + (100vw - 390px) * 0.00062), 22.4px);
+  color: var(--ink-soft);
+}
+.price {
+  margin-top: clamp(27px, calc(27px + (100vw - 390px) * 0.0114), 39px);
+  font-size: clamp(48px, calc(48px + (100vw - 390px) * 0.0057), 54px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.terms {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: clamp(12px, calc(12px + (100vw - 390px) * 0.001), 13px);
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+.action { margin-top: 20px; }
+.card .cta {
+  --c: 12px;
+  width: 100%;
+  max-width: none;
+  height: clamp(40px, calc(40px + (100vw - 390px) * 0.0076), 48px);
+  font-size: clamp(14px, calc(14px + (100vw - 390px) * 0.0019), 16px);
+  font-weight: 500;
+}
+
+.features {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin-top: clamp(28px, calc(28px + (100vw - 390px) * 0.02), 49px);
+  font-size: clamp(14px, calc(14px + (100vw - 390px) * 0.0019), 16px);
+  line-height: 1.4;
+}
+.features li { display: flex; align-items: flex-start; gap: clamp(10px, calc(10px + (100vw - 390px) * 0.0019), 12px); }
+.tick { flex: none; margin-top: calc((1.4em - 14px) / 2); color: var(--tick); }
+
+/* ---------- Custom quote ---------- */
+.custom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: clamp(56px, calc(56px + (100vw - 390px) * 0.0019), 58px);
+  text-align: left;
+}
+.customCopy {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+.customCopy strong {
+  font-size: clamp(18px, calc(18px + (100vw - 390px) * 0.0057), 24px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.customLink {
+  font-family: var(--font-mono);
+  font-size: clamp(13px, calc(13px + (100vw - 390px) * 0.0029), 16px);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--color-cyan);
+  white-space: nowrap;
+}
+.customLink:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- Desktop: one row, the featured card wider and centred ---------- */
+@media (min-width: 1100px) {
+  .tiers {
+    grid-template-columns: 316fr 432fr 316fr;
+    align-items: start;
+    gap: 32px;
+    max-width: none;
+  }
+  .description { text-wrap: balance; } /* the Figma breaks: "One focused project, / shipped in 14 days" */
+  .featured {
+    --cut: 34px;
+    padding: 33px 19.4% 47px; /* Figma's feature frame keeps ~13px spare below the list */
+  }
+  .featured .price { margin-top: 37px; }
+  .featured .action {
+    margin-top: 21px;
+    filter: drop-shadow(0 18px 5.5px rgb(0 0 0 / 0.05)) drop-shadow(0 8px 4px rgb(0 0 0 / 0.09)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.1));
+  }
+  .featured .features { margin-top: 51px; }
+}

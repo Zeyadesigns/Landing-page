@@ -24,6 +24,16 @@
   --cyan-300: #00ffff;
   --cyan-100: #b8ffff;
 
+  /* ---------- Figma variables (Homepage prototype file), same values under their Figma names ---------- */
+  --color-white: var(--white);
+  --color-warm-white: var(--warm-white);
+  --color-light-grey: var(--light-grey);
+  --color-mid-grey: var(--mid-grey);
+  --color-cyan: var(--cyan);
+  --color-black: var(--black);
+  --color-ground: var(--bg);
+  --ice: #e9edf0;         /* Figma "light grey" style: hero subhead on desktop */
+
   /* ---------- Semantic colour (default chapter: ink) ---------- */
   --field: var(--bg);
   --ink: var(--white);
@@ -70,6 +80,11 @@
   --left-col: 360px;      /* hero left column */
   --grid-gap: 24px;
   --max: 1680px;
+  /* homepage column from the Figma frames: 20px in at 390, 156px in at 1440 (1128 wide),
+     then the 1440 frame scaled up (10.83vw in) until 1920, where the 1504px column centres */
+  --content-max: 1504px;
+  --page-inset: clamp(20px, min(12.952vw - 30.5px, 10.833vw), 208px);
+  --col-left: max(var(--page-inset), calc((100vw - var(--content-max)) / 2));
 
   /* ---------- Shape ---------- */
   --radius: 0;            /* square everywhere; the cut corner is the only shaping device */

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/ds/SiteHeader";
 import Button from "@/components/ds/Button";
+import SiteFooter from "@/components/ds/SiteFooter";
 import { services } from "@/content/services";
 import styles from "@/components/templates/NotFound.module.css";
 
@@ -8,6 +9,7 @@ export const metadata = { title: "Page not found", robots: { index: false, follo
 
 export default function NotFound() {
   return (
+    <>
     <section data-chapter="cyan" className={styles.page} aria-labelledby="nf-title">
       <div className="wrap">
         <SiteHeader />
@@ -32,5 +34,7 @@ export default function NotFound() {
         <Button href="/">Back to the home page</Button>
       </div>
     </section>
+    <SiteFooter />
+    </>
   );
 }

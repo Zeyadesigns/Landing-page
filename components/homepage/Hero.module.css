@@ -1,0 +1,154 @@
+/* Hero from the Figma frames: desktop 1440x808, mobile 390x444. Everything between is interpolated;
+   above 1440 the desktop frame scales up as a whole (every size in vw) until 1920. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(444px, calc(444px + (100vw - 390px) * 0.3467), 808px);
+  padding: 0 var(--gutter) clamp(85px, calc(139px - (100vw - 390px) * 0.0514), 139px);
+  background: var(--field) url("/homepage/hero-liquid-mobile.webp") center / cover no-repeat;
+  color: var(--ink);
+}
+
+/* ---------- Navigation ---------- */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: clamp(20px, calc(20px + (100vw - 390px) * 0.0171), 38px);
+}
+.logo {
+  display: block;
+  width: clamp(31px, calc(31px + (100vw - 390px) * 0.0229), 55px);
+  margin: clamp(4px, calc(4px + (100vw - 390px) * 0.0038), 8px) 0 clamp(4px, calc(4px + (100vw - 390px) * 0.0038), 8px) clamp(0px, calc((100vw - 390px) * 0.0076), 8px);
+  fill: var(--color-white);
+}
+.logo svg { display: block; width: 100%; height: auto; fill: inherit; }
+.navEnd { display: flex; align-items: center; gap: clamp(14px, calc(14px + (100vw - 390px) * 0.0076), 22px); }
+
+.clock {
+  display: flex;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(12px, calc(12px + (100vw - 390px) * 0.0038), 16px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-white);
+}
+.tz { white-space: nowrap; }
+
+/* outlined, chamfered secondary action: teal keyline, no fill, so the gradient shows through */
+.outline {
+  --cut: clamp(8px, calc(8px + (100vw - 390px) * 0.0076), 16px); /* not --c: Button registers that name */
+  --line: #14b4b4;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(36px, calc(36px + (100vw - 390px) * 0.0133), 50px);
+  padding: 0 clamp(14px, calc(14px + (100vw - 390px) * 0.0057), 20px);
+  margin-right: clamp(0px, calc((100vw - 390px) * 0.0076), 8px);
+  border: 1.5px solid var(--line);
+  color: var(--color-warm-white);
+  font-size: clamp(13px, calc(13px + (100vw - 390px) * 0.0029), 16px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+/* the two cut corners lose their border to the clip, so draw the diagonals */
+.outline::before,
+.outline::after {
+  content: "";
+  position: absolute;
+  width: var(--cut);
+  height: var(--cut);
+  background: linear-gradient(to top left, transparent calc(50% - 2.2px), var(--line) calc(50% - 2.2px), var(--line) 50%, transparent 50%);
+}
+.outline::before { top: -1.5px; left: -1.5px; }
+.outline::after { right: -1.5px; bottom: -1.5px; transform: rotate(180deg); }
+.outline:hover { background: color-mix(in srgb, var(--cyan) 14%, transparent); }
+.outline:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--cyan); } /* clip-path hides outline */
+
+/* ---------- Copy ---------- */
+.copy {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(12px, calc(10.5px + 0.381vw), 16px);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.headline {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(36px, calc(16.69px + 4.952vw), 88px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.headline em {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.subhead {
+  margin-top: 10px;
+  max-width: clamp(310px, calc(255px + 14vw), 457px);
+  font-size: clamp(15px, calc(13.89px + 0.2857vw), 18px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--ink-soft);
+}
+.extra { display: none; }
+.cta {
+  margin-top: 20px;
+  height: clamp(40px, calc(40px + (100vw - 390px) * 0.0076), 48px);
+  padding: 0 22px;
+  font-size: clamp(14px, calc(14px + (100vw - 390px) * 0.0019), 16px);
+  font-weight: 500;
+}
+
+/* ---------- Tablet and up: copy aligns left on the Figma column ---------- */
+@media (min-width: 769px) {
+  .hero { background-image: url("/homepage/hero-liquid.webp"); }
+  .copy { align-items: flex-start; text-align: left; padding-left: calc(var(--col-left) - var(--gutter)); }
+  .headline { margin-left: -0.06em; max-width: 8.8em; } /* the Figma text box: "Design that makes / customers lean in." */
+  .subhead { color: var(--ice); }
+  .extra { display: inline; }
+  .eyebrow { margin-bottom: 18px; }
+}
+
+/* ---------- Wider than the frame: scale the 1440 composition, capped at 1920 ---------- */
+@media (min-width: 1441px) {
+  .hero { --gutter: min(2.778vw, 53.3px); min-height: min(56.11vw, 1077px); padding-bottom: min(5.903vw, 113px); }
+  .nav { padding-top: min(2.639vw, 50.7px); }
+  .logo { width: min(3.819vw, 73.3px); margin: min(0.556vw, 10.7px) 0 min(0.556vw, 10.7px) min(0.556vw, 10.7px); }
+  .navEnd { gap: min(1.528vw, 29.3px); }
+  .clock { font-size: min(1.111vw, 21.3px); gap: min(0.556vw, 10.7px); }
+  .outline {
+    --cut: min(1.111vw, 21.3px);
+    height: min(3.472vw, 66.7px);
+    padding: 0 min(1.389vw, 26.7px);
+    margin-right: min(0.556vw, 10.7px);
+    font-size: min(1.111vw, 21.3px);
+  }
+  .eyebrow { font-size: min(1.111vw, 21.3px); margin-bottom: min(1.25vw, 24px); }
+  .headline { font-size: min(6.111vw, 117.3px); }
+  .subhead { margin-top: min(0.694vw, 13.3px); max-width: min(31.74vw, 609px); font-size: min(1.25vw, 24px); }
+  .cta {
+    margin-top: min(1.389vw, 26.7px);
+    height: min(3.333vw, 64px);
+    padding: 0 min(1.528vw, 29.3px);
+    font-size: min(1.111vw, 21.3px);
+  }
+}

@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "./Hero.module.css";
 
 const TIME_ZONE = "Africa/Cairo";
 
 // Live studio clock in Cairo time (offset label updates automatically).
 // Renders a placeholder on the server and fills in after mount to avoid hydration mismatches.
-export default function StudioClock() {
+export default function StudioClock({ className, tzClassName }: { className: string; tzClassName: string }) {
   const [tz, setTz] = useState("GMT+3");
   const [time, setTime] = useState("--:--");
 
@@ -35,8 +34,8 @@ export default function StudioClock() {
   }, []);
 
   return (
-    <div className={styles.clock} aria-label="Studio local time">
-      <span className={styles.tz}>{tz}</span>
+    <div className={className} aria-label="Studio local time">
+      <span className={tzClassName}>{tz}</span>
       <span>{time}</span>
     </div>
   );
