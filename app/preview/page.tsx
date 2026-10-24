@@ -13,6 +13,7 @@ export default function Preview() {
       <Hero />
       <Work headline={homepage.work.headline} projects={homepage.work.projects} />
       <Pricing />
+      <Work projects={homepage.work.more} />
     </>
   );
 }

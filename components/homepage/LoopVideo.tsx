@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
-/** A decorative muted loop laid over its still. Starts only when motion is welcome; until it plays, the still shows. */
+/**
+ * A decorative muted loop laid over its still. Loads and plays only when motion is welcome and the tile
+ * comes near the viewport, pauses when it leaves; until it plays, the still shows.
+ */
 export default function LoopVideo({ sources }: { sources: string[] }) {
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -10,7 +13,12 @@ export default function LoopVideo({ sources }: { sources: string[] }) {
     const video = ref.current;
     if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     video.addEventListener("playing", () => (video.style.opacity = "1"), { once: true });
-    video.play().catch(() => {});
+    const observer = new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? video.play().catch(() => {}) : video.pause()),
+      { rootMargin: "200px 0px" },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -19,7 +27,7 @@ export default function LoopVideo({ sources }: { sources: string[] }) {
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="none"
       aria-hidden="true"
       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0 }}
     >

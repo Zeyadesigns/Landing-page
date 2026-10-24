@@ -7,9 +7,20 @@
  * One gallery image. w/h are the Figma frame size: they set the aspect ratio and the share of the row.
  * `video` plays over the image (muted, looping) unless the visitor prefers reduced motion; list WebM first,
  * then an MP4 fallback. The image is the poster and what reduced-motion visitors see.
+ * `bleed` widens a lone image past the column on both sides (Figma px at 1440) when its artwork has
+ * transparent margins, so the visible artwork lines up with the column.
  */
-export type ProjectImage = { src: string; alt: string; w: number; h: number; position?: string; video?: string[] };
-export type Project = { name: string; services: string; rows: ProjectImage[][] };
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  w: number;
+  h: number;
+  position?: string;
+  video?: string[];
+  bleed?: number;
+};
+/** A row holds images side by side; an array inside a row is a vertical stack sharing one column. */
+export type Project = { name: string; services: string; rows: (ProjectImage | ProjectImage[])[][] };
 export type Tier = {
   name: string;
   description: string;
@@ -99,6 +110,57 @@ export const homepage = {
         name: "Aerospace",
         services: "Web design",
         rows: [[img("aerospace-1", "Aerospace operations website: Ground control for the modern fleet", 1128, 821)]],
+      },
+    ] satisfies Project[],
+    /** Shown after Pricing, continuing the list. */
+    more: [
+      {
+        name: "Mantra",
+        services: "Editorial Layout",
+        rows: [[img("mantra-1", "Mantra website hero: Above and beyond the ordinary", 1128, 759)]],
+      },
+      {
+        name: "RaveCultur",
+        services: "Brand identity",
+        rows: [
+          [
+            {
+              ...img("ravecultur-1", "RaveCultur artist plans presentation, slide by slide", 1128, 634),
+              video: ["/homepage/work/ravecultur-1.webm", "/homepage/work/ravecultur-1.mp4"],
+            },
+          ],
+        ],
+      },
+      {
+        name: "Falcon Systems",
+        services: "Web design",
+        rows: [[img("falcon-1", "Falcon Systems website hero: Most IT firms fix problems, we prevent them", 1128, 657)]],
+      },
+      {
+        name: "Bloomberry AI",
+        services: "Logo design",
+        rows: [
+          [
+            img("bloomberry-1", "Bloomberry AI wordmark on a deep blue sky", 548, 548),
+            // Figma overlaps two images under a bar; these are the two tiles as it shows them
+            [
+              img("bloomberry-2", "Bloomberry leaf mark in navy on white and in blush on blue", 548, 258),
+              img("bloomberry-3", "Bloomberry in a browser tab", 548, 258),
+            ],
+          ],
+        ],
+      },
+      {
+        name: "Balich Wonder SA",
+        services: "Brand identity · Presentation",
+        rows: [
+          [
+            {
+              ...img("balich-1", "Al Ula Hot Air Balloon presentation spreads: logo, typography, journey and applications", 1142, 662),
+              bleed: 7,
+            },
+          ],
+        ],
       },
     ] satisfies Project[],
   },

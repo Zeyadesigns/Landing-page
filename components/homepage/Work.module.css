@@ -37,13 +37,29 @@
   flex-shrink: 1;
   flex-basis: 0;
   min-width: 0;
-  overflow: hidden;
-  background: var(--mid-grey);
+  overflow: hidden; /* no fill: transparent artwork (Balich's gutters) shows the page, as in Figma */
 }
 .cell img { object-fit: cover; }
+/* desktop frame only: the Figma mobile frame keeps every image inside the column */
+@media (min-width: 769px) {
+  .cell { margin-inline: calc(-1 * var(--bleed, 0%)); }
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  flex-basis: 0;
+  min-width: 0;
+}
+.stack .cell { flex: 1 1 0; }
+
+/* the group after Pricing: Pricing's bottom padding already spaces it */
+.continued { padding-top: 0; }
 
 .label {
   display: flex;
+  flex-wrap: wrap; /* a long services line drops under the name, left-aligned, as on the mobile frame */
+  row-gap: 6px;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-s);
