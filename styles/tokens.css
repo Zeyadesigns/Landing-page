@@ -24,6 +24,16 @@
   --cyan-300: #00ffff;
   --cyan-100: #b8ffff;
 
+  /* ---------- Figma variables (Homepage prototype file), same values under their Figma names ---------- */
+  --color-white: var(--white);
+  --color-warm-white: var(--warm-white);
+  --color-light-grey: var(--light-grey);
+  --color-mid-grey: var(--mid-grey);
+  --color-cyan: var(--cyan);
+  --color-black: var(--black);
+  --color-ground: var(--bg);
+  --ice: #e9edf0;         /* Figma "light grey" style: hero subhead on desktop */
+
   /* ---------- Semantic colour (default chapter: ink) ---------- */
   --field: var(--bg);
   --ink: var(--white);

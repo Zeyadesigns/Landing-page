@@ -20,7 +20,7 @@ const hedvig = Hedvig_Letters_Serif({
 });
 const geistMono = Geist_Mono({ // taste-skill-ignore: brand face for the hero clock (PRODUCT.md)
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "500"],
   variable: "--font-geist-mono",
   display: "swap",
 });
