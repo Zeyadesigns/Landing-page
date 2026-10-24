@@ -1,6 +1,5 @@
 /* Hero from the Figma frames: desktop 1440x808, mobile 390x444. Everything between is interpolated. */
 .hero {
-  --inset: clamp(20px, 10.83vw, 156px); /* copy column: 156px at 1440 */
   position: relative;
   isolation: isolate;
   display: flex;
@@ -121,7 +120,7 @@
 /* ---------- Tablet and up: copy aligns left on the Figma column ---------- */
 @media (min-width: 769px) {
   .hero { background-image: url("/homepage/hero-liquid.webp"); }
-  .copy { align-items: flex-start; text-align: left; padding-left: calc(var(--inset) - var(--gutter)); }
+  .copy { align-items: flex-start; text-align: left; padding-left: calc(var(--col-left) - var(--gutter)); }
   .headline { margin-left: -0.06em; }
   .subhead { color: var(--ice); }
   .extra { display: inline; }

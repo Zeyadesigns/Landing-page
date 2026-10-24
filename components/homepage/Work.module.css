@@ -1,0 +1,66 @@
+/* Selected Work from the Figma frames: 1128px column at 1440, 350px at 390, fluid between. */
+.work {
+  padding: clamp(32px, calc(32px + (100vw - 390px) * 0.0819), 118px) var(--col-left) 0;
+  background: var(--field);
+  color: var(--ink);
+}
+
+.headline {
+  text-align: center;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(32px, calc(32px + (100vw - 390px) * 0.0286), 62px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: clamp(38px, calc(38px + (100vw - 390px) * 0.0448), 85px);
+}
+.headline em { font-family: var(--font-serif); font-style: normal; font-weight: 400; }
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(72px, calc(72px + (100vw - 390px) * 0.0838), 160px);
+}
+
+/* every row is as tall as its images allow: each cell takes a share of the width equal to its Figma
+   width, and its aspect ratio gives the height, so cells in one row always line up */
+.gallery {
+  --gap: clamp(10px, calc(10px + (100vw - 390px) * 0.021), 32px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+.row { display: flex; gap: var(--gap); }
+.cell {
+  position: relative;
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--mid-grey);
+}
+.cell img { object-fit: cover; }
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-top: clamp(20px, calc(20px + (100vw - 390px) * 0.019), 40px);
+}
+.name {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(18px, calc(18px + (100vw - 390px) * 0.0057), 24px);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+.services {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, calc(12px + (100vw - 390px) * 0.0038), 16px);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  text-align: right;
+}
