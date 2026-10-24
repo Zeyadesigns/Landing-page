@@ -9,6 +9,16 @@
  */
 export type ProjectImage = { src: string; alt: string; w: number; h: number; position?: string; video?: string };
 export type Project = { name: string; services: string; rows: ProjectImage[][] };
+export type Tier = {
+  name: string;
+  description: string;
+  price: string;
+  terms: string;
+  cta: string;
+  features: string[];
+  /** The light, larger card with the "Recommended" tag. */
+  featured?: boolean;
+};
 
 const img = (file: string, alt: string, w: number, h: number, position?: string): ProjectImage => ({
   src: `/homepage/work/${file}.webp`,
@@ -87,5 +97,66 @@ export const homepage = {
         rows: [[img("aerospace-1", "Aerospace operations website: Ground control for the modern fleet", 1128, 821)]],
       },
     ] satisfies Project[],
+  },
+
+  pricing: {
+    headline: { lead: "Three ways to", accent: "work together." },
+    intro: "One fixed price, no surprises. Pick one and tell me about your project.",
+    recommended: "Recommended",
+    /** In page order: left, centre, right on desktop; top to bottom on mobile. */
+    tiers: [
+      {
+        name: "Sprint",
+        description: "One focused project, shipped in 14 days",
+        price: "$2,750",
+        terms: "14 days · Paid upfront",
+        cta: "Start a sprint",
+        features: [
+          "Pick one: brand identity, landing page, or launch assets",
+          "Kickoff strategy call",
+          "3 creative directions",
+          "2 revision rounds",
+          "Final files and handoff",
+        ],
+      },
+      {
+        name: "Retainer",
+        description: "A full month to give your product the brand and site it deserves.",
+        price: "$4,999",
+        terms: "1 month · 50% to start",
+        cta: "Start a sprint",
+        featured: true,
+        features: [
+          "Full brand identity",
+          "Logo, color, type and guidelines",
+          "High-impact website, designed and built",
+          "Additional pages as needed",
+          "Product UI explorations",
+          "Launch and social assets",
+          "Weekly check-in calls",
+          "Shared Slack channel",
+        ],
+      },
+      {
+        // Description, CTA and features repeat Sprint's in the Figma file: placeholder copy.
+        name: "Partner",
+        description: "One focused project, shipped in 14 days",
+        price: "$12,000",
+        terms: "billed monthly at $4,000",
+        cta: "Start a sprint",
+        features: [
+          "Pick one: brand identity, landing page, or launch assets",
+          "Kickoff strategy call",
+          "3 creative directions",
+          "2 revision rounds",
+          "Final files and handoff",
+        ],
+      },
+    ] satisfies Tier[],
+    custom: {
+      lead: "Need something custom?",
+      body: "Tell me what you're building and we'll scope it.",
+      link: "Get a custom quote →",
+    },
   },
 };
