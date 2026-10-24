@@ -80,9 +80,10 @@
   --left-col: 360px;      /* hero left column */
   --grid-gap: 24px;
   --max: 1680px;
-  /* homepage column from the Figma frames: 1128px wide, 156px in at 1440, 20px in at 390 */
-  --content-max: 1128px;
-  --page-inset: clamp(20px, calc(12.952vw - 30.5px), 156px);
+  /* homepage column from the Figma frames: 20px in at 390, 156px in at 1440 (1128 wide),
+     then the 1440 frame scaled up (10.83vw in) until 1920, where the 1504px column centres */
+  --content-max: 1504px;
+  --page-inset: clamp(20px, min(12.952vw - 30.5px, 10.833vw), 208px);
   --col-left: max(var(--page-inset), calc((100vw - var(--content-max)) / 2));
 
   /* ---------- Shape ---------- */

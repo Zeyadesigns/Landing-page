@@ -1,4 +1,5 @@
-/* Hero from the Figma frames: desktop 1440x808, mobile 390x444. Everything between is interpolated. */
+/* Hero from the Figma frames: desktop 1440x808, mobile 390x444. Everything between is interpolated;
+   above 1440 the desktop frame scales up as a whole (every size in vw) until 1920. */
 .hero {
   position: relative;
   isolation: isolate;
@@ -121,8 +122,33 @@
 @media (min-width: 769px) {
   .hero { background-image: url("/homepage/hero-liquid.webp"); }
   .copy { align-items: flex-start; text-align: left; padding-left: calc(var(--col-left) - var(--gutter)); }
-  .headline { margin-left: -0.06em; }
+  .headline { margin-left: -0.06em; max-width: 8.8em; } /* the Figma text box: "Design that makes / customers lean in." */
   .subhead { color: var(--ice); }
   .extra { display: inline; }
   .eyebrow { margin-bottom: 18px; }
+}
+
+/* ---------- Wider than the frame: scale the 1440 composition, capped at 1920 ---------- */
+@media (min-width: 1441px) {
+  .hero { --gutter: min(2.778vw, 53.3px); min-height: min(56.11vw, 1077px); padding-bottom: min(5.903vw, 113px); }
+  .nav { padding-top: min(2.639vw, 50.7px); }
+  .logo { width: min(3.819vw, 73.3px); margin: min(0.556vw, 10.7px) 0 min(0.556vw, 10.7px) min(0.556vw, 10.7px); }
+  .navEnd { gap: min(1.528vw, 29.3px); }
+  .clock { font-size: min(1.111vw, 21.3px); gap: min(0.556vw, 10.7px); }
+  .outline {
+    --cut: min(1.111vw, 21.3px);
+    height: min(3.472vw, 66.7px);
+    padding: 0 min(1.389vw, 26.7px);
+    margin-right: min(0.556vw, 10.7px);
+    font-size: min(1.111vw, 21.3px);
+  }
+  .eyebrow { font-size: min(1.111vw, 21.3px); margin-bottom: min(1.25vw, 24px); }
+  .headline { font-size: min(6.111vw, 117.3px); }
+  .subhead { margin-top: min(0.694vw, 13.3px); max-width: min(31.74vw, 609px); font-size: min(1.25vw, 24px); }
+  .cta {
+    margin-top: min(1.389vw, 26.7px);
+    height: min(3.333vw, 64px);
+    padding: 0 min(1.528vw, 29.3px);
+    font-size: min(1.111vw, 21.3px);
+  }
 }

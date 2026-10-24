@@ -38,7 +38,8 @@ export default function Work({ projects, headline }: Props) {
                             src={im.src}
                             alt={im.alt}
                             fill
-                            sizes={`(min-width: 1440px) ${Math.round((1128 * im.w) / total)}px, ${Math.round((100 * im.w) / total)}vw`}
+                            sizes={`(min-width: 1920px) ${Math.round((1504 * im.w) / total)}px, ${Math.round((100 * im.w) / total)}vw`}
+                            quality={90}
                             style={im.position ? { objectPosition: im.position } : undefined}
                           />
                           {im.video && <LoopVideo src={im.video} />}
