@@ -37,11 +37,12 @@
   text-align: left;
 }
 
-/* chamfered card with a 1px keyline: the outer box paints the keyline, ::before paints the fill 1px in */
+/* chamfered card with a 1px keyline: the outer box paints the keyline, ::before paints the fill 1px in.
+   The dark cards have no stroke (keyline = fill), so they keep the same size and shape. */
 .card {
   --cut: clamp(24px, calc(24px + (100vw - 390px) * 0.0038), 28px);
-  --edge: linear-gradient(to bottom right, #2e2e2e, #4d4d4d 90%); /* Figma: #999 → white at 30% over black */
   --fill: var(--color-black);
+  --edge: var(--fill);
   --ink: var(--color-white);
   --ink-soft: var(--color-light-grey);
   --tick: var(--color-cyan);
